@@ -1,10 +1,9 @@
-Stouts.backup
+ansible-backup
 =============
 
-[![Build Status](http://img.shields.io/travis/Stouts/Stouts.backup.svg?style=flat-square)](https://travis-ci.org/Stouts/Stouts.backup)
-[![Galaxy](http://img.shields.io/badge/galaxy-Stouts.backup-blue.svg?style=flat-square)](https://galaxy.ansible.com/list#/roles/945)
-
 Ansible role which manage backups. Support file backups, postgresql, mysql, mongo db backups.
+
+Initially forked from [Stouts.backup](https://github.com/Stouts/Stouts.backup).
 
 
 ## Variables
@@ -55,7 +54,7 @@ backup_profiles: []           # Setup backup profiles
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
-# Default values (overide them in backup profiles bellow) 
+# Default values (overide them in backup profiles bellow)
 # =======================================================
 # (every value can be replaced in jobs individually)
 
@@ -91,7 +90,7 @@ backup_target_pass:
 # see duplicity man page, chapter TIME_FORMATS)
 backup_max_age: 1M
 
-# Number of full backups to keep. Used for the "purge-full" command. 
+# Number of full backups to keep. Used for the "purge-full" command.
 # See duplicity man page, action "remove-all-but-n-full".
 backup_max_full_backups: 1
 

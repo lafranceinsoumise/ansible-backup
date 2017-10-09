@@ -1,10 +1,6 @@
 ---
-
-dependencies: []
-
 galaxy_info:
-  author: klen
-  company: Stouts
+  author: lafranceinsoumise
   description: Backup system. Files, dirs, databases. Upload to clouds.
   license: MIT
   platforms:
