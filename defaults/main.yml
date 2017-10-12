@@ -24,7 +24,7 @@ backup_postgres_host: ""
 backup_postgres_port: 5432
 
 # Mysql
-backup_mysql_user: mysql
+backup_mysql_user: ""
 backup_mysql_pass: ""
 
 backup_profiles: []           # Setup backup profiles
@@ -42,7 +42,7 @@ backup_profiles: []           # Setup backup profiles
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
-# Default values (overide them in backup profiles bellow) 
+# Default values (overide them in backup profiles bellow)
 # =======================================================
 # (every value can be replaced in jobs individually)
 
@@ -74,11 +74,11 @@ backup_target: 'file:///var/backup'
 backup_target_user:
 backup_target_pass:
 
-# Time frame for old backups to keep, Used for the "purge" command.  
+# Time frame for old backups to keep, Used for the "purge" command.
 # see duplicity man page, chapter TIME_FORMATS)
 backup_max_age: 1M
 
-# Number of full backups to keep. Used for the "purge-full" command. 
+# Number of full backups to keep. Used for the "purge-full" command.
 # See duplicity man page, action "remove-all-but-n-full".
 backup_max_full_backups: 1
 

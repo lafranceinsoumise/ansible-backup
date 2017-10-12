@@ -8,18 +8,19 @@ WORKDIR={{backup_work}}/{{item.name}}
 {% if item.source.startswith('postgresql://') %}
 
 DBNAME={{item.source.split('postgresql://')[-1]}}
-pg_dump -U {{backup_postgres_user}} {{ '-h ' + backup_postgres_host  if backup_postgres_host else ''}} {{ ('-p %s' % backup_postgres_port)  if backup_postgres_port else ''}} -c $DBNAME -f ${WORKDIR}/dump
+pg_dump {{ ('-U %s' % backup_postgres_user) if backup_postgres_user else '' }} {{ ('-h %s' % backup_postgres_host) if backup_postgres_host else ''}} {{ ('-p %s' % backup_postgres_port) if backup_postgres_port else ''}} -c $DBNAME -f ${WORKDIR}/dump
 
 {% elif item.source.startswith('mysql://') %}
 
 {% if item.source == 'mysql://' %}
 # Dump all databases
-mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} --all-databases > ${WORKDIR}/dump
+DBNAME='--all-databases'
 {% else %}
 # Dump the passed database
 DBNAME={{item.source.split('mysql://')[-1]}}
-mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  > ${WORKDIR}/dump
 {% endif %}
+
+mysqldump {{ '-u %s' % backup_mysql_user if backup_mysql_user else '' }} {{ '-p %s' % backup_mysql_pass if backup_mysql_pass else '' }} $DBNAME  > ${WORKDIR}/dump
 
 {% elif item.source.startswith('mongo://') %}
 
