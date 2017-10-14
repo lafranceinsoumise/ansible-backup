@@ -15,11 +15,11 @@ rm -rf $WORKDIR/dump
 
 {% if item.source == 'mysql://' %}
 # Restore all databases
-mysql {{ '-u %s' % backup_mysql_user if backup_mysql_user else '' }} {{ '-p %s' % backup_mysql_pass if backup_mysql_pass else '' }} < ${WORKDIR}/dump
+mysql {{ '-u %s' % backup_mysql_user if backup_mysql_user else '' }} {{ '-p%s' % (backup_mysql_pass|quote) if backup_mysql_pass else '' }} < ${WORKDIR}/dump
 {% else %}
 # Restore the passed database
 DBNAME={{item.source.split('mysql://')[-1]}}
-mysql {{ '-u %s' % backup_mysql_user if backup_mysql_user else '' }} {{ '-p %s' % backup_mysql_pass if backup_mysql_pass else '' }} $DBNAME  < ${WORKDIR}/dump
+mysql {{ '-u %s' % backup_mysql_user if backup_mysql_user else '' }} {{ '-p%s' % (backup_mysql_pass|quote) if backup_mysql_pass else '' }} $DBNAME  < ${WORKDIR}/dump
 rm -rf $WORKDIR/dump
 {% endif %}
 
