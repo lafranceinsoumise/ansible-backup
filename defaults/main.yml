@@ -13,6 +13,7 @@ backup_temp_dir: /tmp
 
 backup_duplicity_pkg: duplicity
 backup_duplicity_version:       # Set duplicity version
+backup_duplicity_ppa: true
 
 # Logging
 backup_logdir: /var/log/duply   # Place where logs will be keepped

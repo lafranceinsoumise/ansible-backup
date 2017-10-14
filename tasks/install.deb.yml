@@ -2,6 +2,13 @@
 
 - include_vars: "{{ansible_distribution}}.yml"
 
+- name: Add duplicity repository
+  apt_repository:
+    repo: ppa:duplicity-team/ppa
+    state: present
+    update_cache: yes
+  when: backup_duplicity_ppa
+
 - name: Install dependencies
   apt: name={{item}}
   with_items:
@@ -14,4 +21,4 @@
   when: backup_duplicity_version
 
 - name: Install duplicity
-  apt: pkg={{backup_duplicity_pkg}}
+  apt: pkg={{backup_duplicity_pkg}} state=latest
