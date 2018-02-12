@@ -1,7 +1,9 @@
 ansible-backup
 =============
 
-Ansible role which manage backups. Support file backups, postgresql, mysql, mongo db backups.
+Ansible role which manage backups. Support file backups, PostgreSQL, MySQL, MongoDB and Redis backups.
+
+Redis backup is experimental and only works with AOF disabled.
 
 Initially forked from [Stouts.backup](https://github.com/Stouts/Stouts.backup).
 
@@ -36,6 +38,10 @@ backup_postgres_host: ""
 # Mysql
 backup_mysql_user: mysql
 backup_mysql_pass: ""
+
+# Redis
+backup_redis_user: redis
+backup_redis_group: "{{backup_redis_user}}"
 
 backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:

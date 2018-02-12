@@ -40,6 +40,10 @@ ARGS="$ARGS --oplog"
 
 mongodump --out $WORKDIR/dump $ARGS
 
+{% elif item.source.startswith('redis://') %}
+
+redis-cli --rdb ${WORKDIR}/dump
+
 {% endif %}
 
 {% for action in item.pre_actions|default([]) %}

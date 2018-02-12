@@ -5,7 +5,7 @@
 
 WORKDIR={{backup_work}}/{{item.name}}
 
-{% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') %}
+{% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') or item.source.startswith('redis://') %}
 rm -rf $WORKDIR/dump
 {% endif %}
 

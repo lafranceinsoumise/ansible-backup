@@ -28,6 +28,10 @@ backup_postgres_port: 5432
 backup_mysql_user: ""
 backup_mysql_pass: ""
 
+# Redis
+backup_redis_user: redis
+backup_redis_group: "{{backup_redis_user}}"
+
 backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:
                               #       - name: www               # required param

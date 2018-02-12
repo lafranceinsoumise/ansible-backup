@@ -28,6 +28,22 @@ rm -rf $WORKDIR/dump
 mongorestore --drop $WORKDIR/dump
 rm -rf $WORKDIR/dump
 
+{% elif item.source.startswith('redis://') %}
+
+if [$(cat /etc/redis/redis.conf |grep 'appendonly '|cut -d' ' -f2) != "no"]
+then
+    echo "Does not work with AOF mode enabled"
+    exit 1
+fi
+
+systemctl start redis-server.service
+REDIS_DB=$(redis-cli --raw config get dir | tail -1)/$(redis-cli --raw config get dbfilename | tail -1)
+systemctl stop redis-server.service
+mv $REDIS_DB $REDIS_DB.back
+mv $WORKDIR/dump $REDIS_DB
+chown {{ backup_redis_user }}:{{ backup_redis_group }} $REDIS_DB
+systemctl start redis-server.service
+
 {% endif %}
 
 {% for action in item.restore_actions|default([]) %}

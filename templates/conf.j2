@@ -29,17 +29,17 @@ TARGET_USER='{{item.target_user|default(backup_target_user)}}'
 TARGET_PASS='{{item.target_pass|default(backup_target_pass)}}'
 {% endif %}
 
-{% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') %}
+{% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') or item.source.startswith('redis://') %}
 SOURCE='{{backup_work}}/{{item.name}}/dump'
 {% else %}
 SOURCE='{{item.source|default(backup_source)}}'
 {% endif %}
 
-# Time frame for old backups to keep, Used for the "purge" command.  
+# Time frame for old backups to keep, Used for the "purge" command.
 # see duplicity man page, chapter TIME_FORMATS)
 MAX_AGE='{{item.max_age|default(backup_max_age)}}'
 
-# Number of full backups to keep. Used for the "purge-full" command. 
+# Number of full backups to keep. Used for the "purge-full" command.
 # See duplicity man page, action "remove-all-but-n-full".
 MAX_FULL_BACKUPS='{{item.max_full_backups|default(backup_max_full_backups)}}'
 
