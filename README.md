@@ -1,6 +1,8 @@
 ansible-backup
 =============
 
+[![GitHub release](https://img.shields.io/github/tag/lafranceinsoumise/ansible-backup.svg)]()
+
 Ansible role which manage backups. Support file backups, PostgreSQL, MySQL, MongoDB and Redis backups.
 
 Redis backup is experimental and only works with AOF disabled.
