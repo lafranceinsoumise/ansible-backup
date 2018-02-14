@@ -4,29 +4,29 @@
 # Setting only a passphrase and omitting the GPG key
 # will enable symmetric passphrase-only encryption.
 {% if item.gpg_key|default(backup_gpg_key) == 'disabled' and item.gpg_pw|default(backup_gpg_pw) %}
-# GPG_KEY='{{ item.gpg_key|default(backup_gpg_key) }}'
+# GPG_KEY={{ item.gpg_key|default(backup_gpg_key)|quote }}
 {% else %}
-GPG_KEY='{{ item.gpg_key|default(backup_gpg_key) }}'
+GPG_KEY={{ item.gpg_key|default(backup_gpg_key)|quote }}
 {% endif %}
-GPG_PW='{{ item.gpg_pw|default(backup_gpg_pw) }}'
+GPG_PW={{ item.gpg_pw|default(backup_gpg_pw)|quote }}
 {% if item.gpg_keys_enc|default(None) %}
-GPG_KEYS_ENC='{{item.gpg_keys_enc}}'
+GPG_KEYS_ENC={{ item.gpg_keys_enc|quote }}
 {% endif %}
 {% if item.gpg_key_sign|default(None) %}
-GPG_KEY_SIGN='{{item.gpg_key_sign}}'
+GPG_KEY_SIGN={{item.gpg_key_sign|quote}}
 {% endif %}
 {% if item.gpg_pw_sign|default(None) %}
-GPG_PW_SIGN='{{item.gpg_pw_sign}}'
+GPG_PW_SIGN={{item.gpg_pw_sign|quote}}
 {% endif %}
-GPG_OPTS='{{item.gpg_opts|default(backup_gpg_opts)}}'
+GPG_OPTS={{item.gpg_opts|default(backup_gpg_opts)|quote}}
 
-TARGET='{{item.target|default(backup_target)}}'
+TARGET={{item.target|default(backup_target)|quote}}
 
 {% if item.target_user|default(backup_target_user) %}
-TARGET_USER='{{item.target_user|default(backup_target_user)}}'
+TARGET_USER={{item.target_user|default(backup_target_user)|quote}}
 {% endif %}
 {% if item.target_pass|default(backup_target_pass) %}
-TARGET_PASS='{{item.target_pass|default(backup_target_pass)}}'
+TARGET_PASS={{item.target_pass|default(backup_target_pass)|quote}}
 {% endif %}
 
 {% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') or item.source.startswith('redis://') %}
@@ -37,11 +37,11 @@ SOURCE='{{item.source|default(backup_source)}}'
 
 # Time frame for old backups to keep, Used for the "purge" command.
 # see duplicity man page, chapter TIME_FORMATS)
-MAX_AGE='{{item.max_age|default(backup_max_age)}}'
+MAX_AGE={{item.max_age|default(backup_max_age)|quote}}
 
 # Number of full backups to keep. Used for the "purge-full" command.
 # See duplicity man page, action "remove-all-but-n-full".
-MAX_FULL_BACKUPS='{{item.max_full_backups|default(backup_max_full_backups)}}'
+MAX_FULL_BACKUPS={{item.max_full_backups|default(backup_max_full_backups)|quote}}
 
 VERBOSITY={{item.verbosity|default(backup_verbosity)}}
 
