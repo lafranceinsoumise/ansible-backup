@@ -41,7 +41,7 @@ MAX_AGE={{item.max_age|default(backup_max_age)|quote}}
 
 # Number of full backups to keep. Used for the "purge-full" command.
 # See duplicity man page, action "remove-all-but-n-full".
-MAX_FULL_BACKUPS={{item.max_full_backups|default(backup_max_full_backups)|quote}}
+MAX_FULL_BACKUPS='{{item.max_full_backups|default(backup_max_full_backups)}}'
 
 VERBOSITY={{item.verbosity|default(backup_verbosity)}}
 
