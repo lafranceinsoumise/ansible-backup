@@ -1,0 +1,11 @@
+- hosts: localhost
+  remote_user: root
+  tasks:
+    - import_role: {name: ansible-backup}
+  vars:
+    backup_home: /home/travis/backup
+    backup_gpg_pw: "symmetric_key"
+    backup_profiles:
+      - name: file
+        source: /home/travis/test_directory
+        target: file:///home/travis/backup/file

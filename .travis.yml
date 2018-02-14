@@ -6,28 +6,24 @@ before_install:
  - sudo apt-get install -qq python-apt python-pycurl
 install:
   - pip install ansible>=1.6.0
+  - mv tests/ansible.cfg ./ansible.cfg
+  - mkdir /home/travis/test_directory
+  - touch /home/travis/test_directory/test_file
 script:
-  # Prepare tests
-  - echo localhost > inventory
-
   # Check syntax
-  - ansible-playbook --syntax-check -i inventory test.yml
+  - ansible-playbook --syntax-check -i tests/inventory tests/test.yml
 
   # First run
-  - ansible-playbook -i inventory test.yml --connection=local --sudo
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
 
   # Second run Idempotence test
   - >
-    ansible-playbook -i inventory test.yml --connection=local --sudo
+    ansible-playbook -i tests/inventory tests/test.yml --connection=local --become
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  - sudo /usr/local/bin/duply test backup
-  - test -d /home/travis/test || exit 1
-
-backup_home: /home/travis/backup
-backup_profiles:
-  - name: test
-    source: /home/travis/build
-    target: file:///home/travis/test
+  - sudo /usr/bin/duply file backup
+  - rm -r /home/travis/test_directory
+  - sudo /usr/bin/duply file restore
+  - test -d /home/travis/test_directory/file || exit 1
