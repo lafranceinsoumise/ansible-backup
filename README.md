@@ -116,7 +116,7 @@ backup_exclude: [] # List of filemasks to exlude
 
 ## Usage
 
-Add `Stouts.backup` to your roles and set variables in your playbook file.
+Add `lafranceinsoumise.backup` to your roles and set variables in your playbook file.
 
 Example:
 
@@ -125,7 +125,7 @@ Example:
 - hosts: all
 
   roles:
-    - Stouts.backup
+    - lafranceinsoumise.backup
 
   vars:
     backup_target_user: aws_access_key
