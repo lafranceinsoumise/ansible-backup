@@ -20,7 +20,7 @@ DBNAME='--all-databases'
 DBNAME={{item.source.split('mysql://')[-1]}}
 {% endif %}
 
-mysqldump {{ '-u %s' % backup_mysql_user if backup_mysql_user else '' }} {{ '-p%s' % (backup_mysql_pass|quote) if backup_mysql_pass else '' }} $DBNAME  > ${WORKDIR}/dump
+mysqldump --skip-lock-table --single-transaction {{ '-u %s' % backup_mysql_user if backup_mysql_user else '' }} {{ '-p%s' % (backup_mysql_pass|quote) if backup_mysql_pass else '' }} $DBNAME  > ${WORKDIR}/dump
 
 {% elif item.source.startswith('mongo://') %}
 
