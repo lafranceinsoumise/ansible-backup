@@ -12,3 +12,10 @@ rm -rf $WORKDIR/dump
 {% for action in item.post_actions|default([]) %}
 {{ action }}
 {% endfor %}
+
+{% if backup_prometheus %}
+if [ $CMD_ERR = 0 ]; then
+  echo backup_time{name=\"{{ item.name }}\"} $(date +%s) > {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
+  mv {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$ {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom
+fi
+{% endif %}

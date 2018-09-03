@@ -1,44 +1,45 @@
 ---
 
-- name: backup-configure | Ensure for backup user is exists
+- name: backup-configure | Ensure backup user exists
   user: name={{backup_user}}
 
-- name: backup-configure | Ensure for backup directories is exits
+- name: backup-configure | Ensure backup directories exist
   file: path={{item}} state=directory owner={{backup_user}} group={{backup_group}}
   with_items:
   - "{{backup_home}}"
   - "{{backup_work}}"
   - "{{backup_logdir}}"
+  - "{{backup_prometheus_dir}}"
 
 - name: backup-configure | Install duply
   template: src=duply.sh.j2 dest=/usr/bin/duply owner={{backup_user}} group={{backup_group}} mode=0755
 
 - name: backup-configure | Create profile directories
-  file: path={{backup_home}}/{{item.name}} state=directory mode=0700 owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
+  file: path={{backup_home}}/{{item.name}} state=directory mode=0700 owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Configure profiles
-  template: src=conf.j2 dest={{backup_home}}/{{item.name}}/conf owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
+  template: src=conf.j2 dest={{backup_home}}/{{item.name}}/conf owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Configure exclude lists
-  template: src=exclude.j2 dest={{backup_home}}/{{item.name}}/exclude owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
+  template: src=exclude.j2 dest={{backup_home}}/{{item.name}}/exclude owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Configure pre scripts
-  template: src=pre.j2 dest={{backup_home}}/{{item.name}}/pre owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
+  template: src=pre.j2 dest={{backup_home}}/{{item.name}}/pre owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Configure post scripts
-  template: src=post.j2 dest={{backup_home}}/{{item.name}}/post owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
+  template: src=post.j2 dest={{backup_home}}/{{item.name}}/post owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Configure restore scripts
-  template: src=restore.j2 dest={{backup_home}}/{{item.name}}/restore owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
+  template: src=restore.j2 dest={{backup_home}}/{{item.name}}/restore owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Create work directories
-  file: state=directory path={{backup_work}}/{{item.name}} owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}  
+  file: state=directory path={{backup_work}}/{{item.name}} owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}}
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Setup cron

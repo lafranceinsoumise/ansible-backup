@@ -5,7 +5,9 @@ ansible-backup
 
 Ansible role which manage backups. Support file backups, PostgreSQL, MySQL, MongoDB and Redis backups.
 
-Redis backup is experimental and only works with AOF disabled.
+Redis backup is experimental and only works with [AOF](https://redis.io/topics/persistence) disabled.
+
+Supports export of backup status to Prometheus. Metrics are written in a directory in order to be exposed by the [Textfile collector](https://github.com/prometheus/node_exporter#textfile-collector).
 
 Initially forked from [Stouts.backup](https://github.com/Stouts/Stouts.backup).
 
@@ -32,6 +34,8 @@ backup_duplicity_version:       # Set duplicity version
 # Logging
 backup_logdir: /var/log/duply   # Place where logs will be keepped
 backup_logrotate: yes           # Setup logs rotation
+backup_prometheus: no
+backup_prometheus_dir: /var/lib/node_exporter
 
 # Posgresql
 backup_postgres_user: postgres
