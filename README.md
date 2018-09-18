@@ -36,6 +36,7 @@ backup_logdir: /var/log/duply   # Place where logs will be keepped
 backup_logrotate: yes           # Setup logs rotation
 backup_prometheus: no
 backup_prometheus_dir: /var/lib/node_exporter
+backup_node_exporter_group: "{{ node_exporter_system_group | default('node-exp') }}" # Default is compatible with cloudalchemy.node-exporter ansible role.
 
 # Posgresql
 backup_postgres_user: postgres
