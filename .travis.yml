@@ -23,7 +23,7 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  - sudo /usr/bin/duply file backup
+  - sudo /usr/bin/duply /etc/duply/file backup
   - rm -r /home/travis/test_directory
-  - sudo /usr/bin/duply file restore
-  - test -d /home/travis/test_directory/file || exit 1
+  - sudo /usr/bin/duply /etc/duply/file restore /home/travis/test_directory
+  - test -e /home/travis/test_directory/test_file || exit 1
