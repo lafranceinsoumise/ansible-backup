@@ -13,39 +13,39 @@ GPG_PW={{ item.gpg_pw|default(backup_gpg_pw)|quote }}
 GPG_KEYS_ENC={{ item.gpg_keys_enc|quote }}
 {% endif %}
 {% if item.gpg_key_sign|default(None) %}
-GPG_KEY_SIGN={{item.gpg_key_sign|quote}}
+GPG_KEY_SIGN={{ item.gpg_key_sign|quote }}
 {% endif %}
 {% if item.gpg_pw_sign|default(None) %}
-GPG_PW_SIGN={{item.gpg_pw_sign|quote}}
+GPG_PW_SIGN={{ item.gpg_pw_sign|quote }}
 {% endif %}
-GPG_OPTS={{item.gpg_opts|default(backup_gpg_opts)|quote}}
+GPG_OPTS={{ item.gpg_opts|default(backup_gpg_opts)|quote }}
 
-TARGET={{item.target|default(backup_target)|quote}}
+TARGET={{ item.target|default(backup_target)|quote }}
 
 {% if item.target_user|default(backup_target_user) %}
-TARGET_USER={{item.target_user|default(backup_target_user)|quote}}
+TARGET_USER={{ item.target_user|default(backup_target_user)|quote }}
 {% endif %}
 {% if item.target_pass|default(backup_target_pass) %}
-TARGET_PASS={{item.target_pass|default(backup_target_pass)|quote}}
+TARGET_PASS={{ item.target_pass|default(backup_target_pass)|quote }}
 {% endif %}
 
 {% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') or item.source.startswith('redis://') %}
-SOURCE='{{backup_work}}/{{item.name}}/dump'
+SOURCE='{{ backup_work }}/{{ item.name }}/dump'
 {% else %}
-SOURCE='{{item.source|default(backup_source)}}'
+SOURCE='{{ item.source|default(backup_source)}}'
 {% endif %}
 
 # Time frame for old backups to keep, Used for the "purge" command.
 # see duplicity man page, chapter TIME_FORMATS)
-MAX_AGE={{item.max_age|default(backup_max_age)|quote}}
+MAX_AGE={{ item.max_age|default(backup_max_age)|quote }}
 
 # Number of full backups to keep. Used for the "purge-full" command.
 # See duplicity man page, action "remove-all-but-n-full".
-MAX_FULL_BACKUPS='{{item.max_full_backups|default(backup_max_full_backups)}}'
+MAX_FULL_BACKUPS='{{ item.max_full_backups|default(backup_max_full_backups)}}'
 
-VERBOSITY={{item.verbosity|default(backup_verbosity)}}
+VERBOSITY={{ item.verbosity|default(backup_verbosity)}}
 
-# ARCH_DIR=/tmp/backup_{{item.name}}
+# ARCH_DIR=/tmp/backup_{{ item.name }}
 
 # activates duplicity --full-if-older-than option (since duplicity v0.4.4.RC3)
 # forces a full backup if last full backup reaches a specified age, for the

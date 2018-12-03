@@ -5,7 +5,7 @@ backup_remove: no               # Set yes for uninstall the role from target sys
 backup_cron: yes                # Setup cron tasks for backup
 
 backup_user: root               # Run backups as user
-backup_group: "{{backup_user}}"
+backup_group: "{{ backup_user }}"
 
 backup_home: /etc/duply             # Backup configuration directory
 backup_work: /var/duply             # Working directory
@@ -33,7 +33,7 @@ backup_mysql_pass: ""
 
 # Redis
 backup_redis_user: redis
-backup_redis_group: "{{backup_redis_user}}"
+backup_redis_group: "{{ backup_redis_user }}"
 
 backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:

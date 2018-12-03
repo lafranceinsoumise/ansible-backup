@@ -1,6 +1,6 @@
 ---
 
-- include_vars: "{{ansible_distribution}}.yml"
+- include_vars: "{{ ansible_distribution }}.yml"
 
 - name: Add duplicity repository
   apt_repository:
@@ -18,8 +18,8 @@
     - s3cmd
     - duply
 
-- set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}={{backup_duplicity_version}}"
+- set_fact: backup_duplicity_pkg="{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
   when: backup_duplicity_version
 
 - name: Install duplicity
-  apt: pkg={{backup_duplicity_pkg}} state=latest
+  apt: pkg={{ backup_duplicity_pkg }} state=present

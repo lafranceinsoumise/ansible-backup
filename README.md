@@ -7,7 +7,8 @@ Ansible role which manage backups. Support file backups, PostgreSQL, MySQL, Mong
 
 Redis backup is experimental and only works with [AOF](https://redis.io/topics/persistence) disabled.
 
-Supports export of backup status to Prometheus. Metrics are written in a directory in order to be exposed by the [Textfile collector](https://github.com/prometheus/node_exporter#textfile-collector).
+Supports export of backup status to Prometheus. Metrics are written in a directory
+in order to be exposed by the [Textfile collector](https://github.com/prometheus/node_exporter#textfile-collector).
 
 Initially forked from [Stouts.backup](https://github.com/Stouts/Stouts.backup).
 
@@ -22,7 +23,7 @@ backup_remove: no               # Set yes for uninstall the role from target sys
 backup_cron: yes                # Setup cron tasks for backup
 
 backup_user: root               # Run backups as user
-backup_group: "{{backup_user}}"
+backup_group: "{{ backup_user }}"
 
 backup_home: /etc/duply         # Backup configuration directory
 backup_work: /var/duply         # Working directory
@@ -36,7 +37,8 @@ backup_logdir: /var/log/duply   # Place where logs will be keepped
 backup_logrotate: yes           # Setup logs rotation
 backup_prometheus: no
 backup_prometheus_dir: /var/lib/node_exporter
-backup_node_exporter_group: "{{ node_exporter_system_group | default('node-exp') }}" # Default is compatible with cloudalchemy.node-exporter ansible role.
+backup_node_exporter_group: "{{ node_exporter_system_group | default('node-exp') }}"
+                            # Default is compatible with cloudalchemy.node-exporter ansible role.
 
 # Posgresql
 backup_postgres_user: postgres
@@ -48,7 +50,7 @@ backup_mysql_pass: ""
 
 # Redis
 backup_redis_user: redis
-backup_redis_group: "{{backup_redis_user}}"
+backup_redis_group: "{{ backup_redis_user }}"
 
 backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:
@@ -141,13 +143,13 @@ Example:
     - name: uploads                               # Required params
         schedule: 0 3 * * *                       # At 3am every day
         source: /usr/lib/project/uploads
-        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/uploads
+        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{ inventory_hostname }}/uploads
 
     # Backup postgresql database
     - name: postgresql
         schedule: 0 4 * * *                       # At 4am every day
         source: postgresql://project              # Backup prefixes: postgresql://, maysql://, mongo://, redis://
-        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/postgresql
+        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{ inventory_hostname }}/postgresql
         user: postgres
 
 ```
