@@ -100,3 +100,40 @@ backup_volsize: 50
 backup_verbosity: 3
 
 backup_exclude: [] # List of filemasks to exlude
+
+# List of packages for schemes
+backup_scheme_deps:
+  azure:
+    - python-azure-storage
+  copy:
+    - python-urllib3
+  fish:
+    - lftp
+  ftp:
+    - lftp
+  ftps:
+    - lftp
+  gs:
+    - python-boto
+  rsync:
+    - rsync
+  mega:
+    - megatools
+  onedrive:
+    - python-requests
+    - python-requests-oauthlib
+  s3:
+    - python-boto
+  scp:
+    - python-paramiko
+  sftp:
+    - python-paramiko
+  pexpect+scp:
+    - openssh-client
+    - python-pexpect
+  pexpect+sftp:
+    - openssh-client
+    - python-pexpect
+  swift:
+    - python-swiftclient
+    - python-keystoneclient

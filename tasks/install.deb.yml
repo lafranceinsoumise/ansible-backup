@@ -9,17 +9,22 @@
     update_cache: yes
   when: backup_duplicity_ppa
 
-- name: Install dependencies
-  apt:
-    name:
-    - cron
-    - gzip
-    - python-boto
-    - s3cmd
-    - duply
-
-- set_fact: backup_duplicity_pkg="{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
+- set_fact:
+    backup_duplicity_pkg: "{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
   when: backup_duplicity_version
 
-- name: Install duplicity
-  apt: pkg={{ backup_duplicity_pkg }} state=present
+- name: Install core dependencies
+  apt:
+    name:
+      - cron
+      - gzip
+      - duply
+      - "{{ backup_duplicity_pkg }}"
+    state: present
+
+- name: Install backup profile dependencies
+  apt:
+    name: "{{ backup_scheme_deps[item.target | urlsplit('scheme')] }}"
+    state: present
+  loop: "{{ backup_profiles }}"
+  when: backup_scheme_deps[item.target | urlsplit('scheme')] is defined
