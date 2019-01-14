@@ -1,5 +1,4 @@
 ---
-
 - include_vars: "{{ ansible_distribution }}.yml"
 
 - name: Add duplicity repository
@@ -12,14 +11,18 @@
 - name: Install dependencies
   apt:
     name:
-    - cron
-    - gzip
-    - python-boto
-    - s3cmd
-    - duply
+      - cron
+      - gzip
+      - python-boto
+      - s3cmd
+      - duply
+    state: present
 
-- set_fact: backup_duplicity_pkg="{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
+- set_fact: 
+    backup_duplicity_pkg: "{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
   when: backup_duplicity_version
 
 - name: Install duplicity
-  apt: pkg={{ backup_duplicity_pkg }} state=present
+  apt:
+    name: "{{ backup_duplicity_pkg }}"
+    state: present
