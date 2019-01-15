@@ -8,16 +8,6 @@
     update_cache: yes
   when: backup_duplicity_ppa
 
-- name: Install dependencies
-  apt:
-    name:
-      - cron
-      - gzip
-      - python-boto
-      - s3cmd
-      - duply
-    state: present
-
 - set_fact: 
     backup_duplicity_pkg: "{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
   when: backup_duplicity_version
@@ -25,4 +15,12 @@
 - name: Install duplicity
   apt:
     name: "{{ backup_duplicity_pkg }}"
+    state: present
+
+- name: Install core dependencies
+  apt:
+    name:
+      - cron
+      - gzip
+      - duply
     state: present
