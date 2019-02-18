@@ -4,7 +4,7 @@
   user: name={{ backup_user }}
 
 - name: backup-configure | Ensure backup user is in node-exporter group
-  user: name={{ backup_user }} group={{ backup_node_exporter_group }} append=yes
+  user: name={{ backup_user }} groups={{ backup_node_exporter_group }} append=yes
   when: backup_prometheus
 
 - name: backup-configure | Ensure backup directories exist
