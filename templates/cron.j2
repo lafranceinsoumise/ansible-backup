@@ -7,12 +7,12 @@
 {{ profile.schedule }} {{ profile.user|default(backup_user)}} /usr/bin/duply {{ backup_home }}/{{ profile.name }} {{ profile.action|default('backup')}} >> {{ backup_logdir }}/{{ profile.name }}.log 2>&1
 {% endif %}
 {% if profile.purge|default(None) %}
-{{ profile.purge }} {{ profile.user|default(backup_user)}} /usr/bin/duply {{ backup_home }}/{{ profile.name }} purge >> {{ backup_logdir }}/{{ profile.name }}_purge.log 2>&1
+{{ profile.purge }} {{ profile.user|default(backup_user)}} /usr/bin/duply {{ backup_home }}/{{ profile.name }} purge --force >> {{ backup_logdir }}/{{ profile.name }}_purge.log 2>&1
 {% endif %}
 {% if profile.purgeFull|default(None) %}
-{{ profile.purgeFull }} {{ profile.user|default(backup_user)}} /usr/bin/duply {{ backup_home }}/{{ profile.name }} purgeFull >> {{ backup_logdir }}/{{ profile.name }}_purgeFull.log 2>&1
+{{ profile.purgeFull }} {{ profile.user|default(backup_user)}} /usr/bin/duply {{ backup_home }}/{{ profile.name }} purgeFull --force >> {{ backup_logdir }}/{{ profile.name }}_purgeFull.log 2>&1
 {% endif %}
 {% if profile.purgeIncr|default(None) %}
-{{ profile.purgeIncr }} {{ profile.user|default(backup_user)}} /usr/bin/duply {{ backup_home }}/{{ profile.name }} purgeIncr >> {{ backup_logdir }}/{{ profile.name }}_purgeIncr.log 2>&1
+{{ profile.purgeIncr }} {{ profile.user|default(backup_user)}} /usr/bin/duply {{ backup_home }}/{{ profile.name }} purgeIncr --force >> {{ backup_logdir }}/{{ profile.name }}_purgeIncr.log 2>&1
 {% endif %}
 {% endfor %}
