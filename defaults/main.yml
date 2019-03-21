@@ -39,6 +39,9 @@ backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:
                               #       - name: www               # required param
                               #         schedule: 0 0 * * 0     # if defined enabled cronjob
+                              #         purge: 0 0 1 * *        # how often to purge old backups
+                              #         purgeFull: 0 0 1 * *    # how often to purge full backups
+                              #         purgeIncr: 0 0 * * 0    # how often to purge incremental backups
                               #         source: /var/www
                               #         max_age: 10D
                               #         target: s3://my.bucket/www
@@ -89,6 +92,9 @@ backup_max_age: 1M
 # Number of full backups to keep. Used for the "purge-full" command.
 # See duplicity man page, action "remove-all-but-n-full".
 backup_max_full_backups: 1
+
+# Number of full backups to keep with associated incrementals
+backup_max_fulls_with_incrs: 1
 
 # forces a full backup if last full backup reaches a specified age
 backup_full_max_age: 1M

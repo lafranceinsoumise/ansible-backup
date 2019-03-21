@@ -43,6 +43,9 @@ MAX_AGE={{ item.max_age|default(backup_max_age)|quote }}
 # See duplicity man page, action "remove-all-but-n-full".
 MAX_FULL_BACKUPS='{{ item.max_full_backups|default(backup_max_full_backups)}}'
 
+# Number of full backups to keep with associated incrementals
+MAX_FULLS_WITH_INCRS='{{ item.max_fulls_with_incrs|default(backup_max_fulls_with_incrs)}}'
+
 VERBOSITY={{ item.verbosity|default(backup_verbosity)}}
 
 # ARCH_DIR=/tmp/backup_{{ item.name }}
