@@ -1,6 +1,6 @@
 ---
 
-- include_tasks: install.deb.yml
+- include_tasks: install.yml
   when: not backup_remove
 
 - include_tasks: configure.yml
