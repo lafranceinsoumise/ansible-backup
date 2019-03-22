@@ -2,7 +2,8 @@ ansible-backup
 =============
 
 [![GitHub release](https://img.shields.io/github/tag/lafranceinsoumise/ansible-backup.svg)]()
-[![Travis status](https://api.travis-ci.org/lafranceinsoumise/ansible-backup.svg?branch=master]()
+
+[![Travis status](https://api.travis-ci.org/lafranceinsoumise/ansible-backup.svg?branch=master)]()
 
 Ansible role which manage backups. Support file backups, PostgreSQL, MySQL, MongoDB and Redis backups.
 
