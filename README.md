@@ -91,9 +91,7 @@ backup_gpg_opts: ''
 #   rsync://user[:password]@other.host[:port]::/module/some_dir
 #   rsync://user@other.host[:port]/relative_path
 #   rsync://user@other.host[:port]//absolute_path
-#   # for the s3 user/password are AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY
-#   s3://[user:password]@host/bucket_name[/prefix]
-#   s3+http://[user:password]@bucket_name[/prefix]
+#   s3://host/bucket_name[/prefix]
 #   ssh://user[:password]@other.host[:port]/some_dir
 #   tahoe://alias/directory
 #   webdav[s]://user[:password]@other.host/some_dir
@@ -136,24 +134,40 @@ Example:
     - lafranceinsoumise.backup
 
   vars:
-    backup_target_user: aws_access_key
-    backup_target_pass: aws_secret
+    backup_env:
+      AWS_ACCESS_KEY_ID: aws_access_key
+      AWS_SECRET_ACCESS_KEY: aws_secret
     backup_profiles:
 
     # Backup file path
     - name: uploads                               # Required params
         schedule: 0 3 * * *                       # At 3am every day
         source: /usr/lib/project/uploads
-        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{ inventory_hostname }}/uploads
+        target: s3://s3-eu-west-1.amazonaws.com/backup.bucket/{{ inventory_hostname }}/uploads
+  
 
     # Backup postgresql database
     - name: postgresql
         schedule: 0 4 * * *                       # At 4am every day
         source: postgresql://project              # Backup prefixes: postgresql://, mysql://, mongo://, redis://
-        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{ inventory_hostname }}/postgresql
+        target: s3://s3-eu-west-1.amazonaws.com/backup.bucket/{{ inventory_hostname }}/postgresql
         user: postgres
 
 ```
+
+### S3, Azure, Cloudfiles...
+
+Some backends do not support the user/pass auth scheme. In this case,
+you should provide the necessary environment variables through
+`backup_env` or profile `env`. The following is an incomplete list from duply
+documentation.
+
+* Azure: AZURE_ACCOUNT_NAME, AZURE_ACCOUNT_KEY
+* Cloudfiles: CLOUDFILES_USERNAME, CLOUDFILES_APIKEY, CLOUDFILES_AUTHURL
+* Google Cloud Storage: GS_ACCESS_KEY_ID, GS_SECRET_ACCESS_KEY
+* Pydrive: GOOGLE_DRIVE_ACCOUNT_KEY, GOOGLE_DRIVE_SETTINGS
+* S3: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+* Swift: SWIFT_USERNAME, SWIFT_PASSWORD, SWIFT_AUTHURL, SWIFT_TENANTNAME OR SWIFT_PREAUTHURL, SWIFT_PREAUTHTOKEN
 
 ### Manage backups manually
 
