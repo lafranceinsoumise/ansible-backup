@@ -27,4 +27,4 @@
     name: "{{ backup_scheme_deps[item.target | urlsplit('scheme')] }}"
     state: present
   loop: "{{ backup_profiles }}"
-  when: backup_scheme_deps[item.target | urlsplit('scheme')] is defined
+  when: backup_scheme_deps[item.target|default(backup_target) | urlsplit('scheme')] is defined
