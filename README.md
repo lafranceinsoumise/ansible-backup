@@ -65,7 +65,7 @@ backup_profiles: []           # Setup backup profiles
                               #           - *.pyc
                               #       - name: postgresql
                               #         schedule: 0 4 * * *
-                              #         action: restore         # Choose action: backup/restore (default is backup)
+                              #         action: backup_purge         # If you want to run the purge command along with the backup one to delete obsolete backups
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
