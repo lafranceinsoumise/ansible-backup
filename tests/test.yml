@@ -8,3 +8,5 @@
     backup_profiles:
       - name: file
         source: /home/travis/test_directory
+        env:
+          TEST: value

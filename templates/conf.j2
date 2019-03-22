@@ -29,6 +29,10 @@ TARGET_USER={{ item.target_user|default(backup_target_user)|quote }}
 TARGET_PASS={{ item.target_pass|default(backup_target_pass)|quote }}
 {% endif %}
 
+{% for key,value in (item.env|default(backup_env)|default({})).items() %}
+export {{ key }}={{ value|quote }}
+{% endfor %}
+
 {% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') or item.source.startswith('redis://') %}
 SOURCE='{{ backup_work }}/{{ item.name }}/dump'
 {% else %}
