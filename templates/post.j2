@@ -15,7 +15,12 @@ rm -rf $WORKDIR/dump
 
 {% if backup_prometheus %}
 if [ $CMD_ERR = 0 ]; then
-  echo backup_time{name=\"{{ item.name }}\"} $(date +%s) > {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
+  cat << EOT >> {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
+  # HELP backup_time Last backup in seconds.
+  # TYPE backup_time gauge
+  backup_time{name=\"{{ item.name }}\"} $(date +%s) > {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
+  EOT
+
   chmod g+r {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
   chown $USER:{{ backup_node_exporter_group }} {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
   mv {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$ {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom
