@@ -18,7 +18,7 @@ if [ $CMD_ERR = 0 ]; then
   cat << EOT >> {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
 # HELP backup_time Last backup in seconds.
 # TYPE backup_time gauge
-backup_time{name="{{ item.name }}"} $(date +%s) > {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
+backup_time{name="{{ item.name }}"} $(date +%s)
 EOT
 
   chmod g+r {{ backup_prometheus_dir }}/backup_{{ item.name }}.prom.$$
