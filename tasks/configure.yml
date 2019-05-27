@@ -71,9 +71,24 @@
     group: "{{ item.group|default(backup_group) }}"
   with_items: "{{ backup_profiles }}"
 
+- name: backup-configure | Ensure legacy cron file is absent
+  file:
+    state: absent
+    path: /etc/cron.d/backup
+
 - name: backup-configure | Setup cron
-  template: src=cron.j2 dest=/etc/cron.d/backup owner=root group=root mode=0644
-  when: backup_cron
+  cron:
+    cron_file: duply_backup
+    user: "{{ item.user|default(backup_user) }}"
+    job: /usr/bin/duply {{ backup_home }}/{{ item.name }} {{ item.action|default('backup')}} >> {{ backup_logdir }}/{{ item.name }}.log 2>&1
+    minute: "{{ item.schedule.split(' ')[0] }}"
+    hour: "{{ item.schedule.split(' ')[1] }}"
+    day: "{{ item.schedule.split(' ')[2] }}"
+    month: "{{ item.schedule.split(' ')[3] }}"
+    weekday: "{{ item.schedule.split(' ')[4] }}"
+    name: "{{ item.name }}"
+  loop: "{{ backup_profiles }}"
+  when: backup_cron and item.schedule|default(None)
 
 - name: backup-configure | Create log files
   file:
