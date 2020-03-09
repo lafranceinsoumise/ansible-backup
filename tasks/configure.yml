@@ -11,7 +11,7 @@
   file: path={{ item }} state=directory owner={{ backup_user }} group={{ backup_group }}
   with_items:
   - "{{ backup_home }}"
-  - "{{ backup_work }}"
+  - "{{ item.work_dir|default(backup_work) }}"
   - "{{ backup_logdir }}"
 
 - name: backup-configure | Create profile directories
@@ -66,7 +66,7 @@
 - name: backup-configure | Create work directories
   file:
     state: directory
-    path: "{{ backup_work }}/{{ item.name }}"
+    path: "{{ item.work_dir|default(backup_work) }}/{{ item.name }}"
     owner: "{{ item.user|default(backup_user) }}"
     group: "{{ item.group|default(backup_group) }}"
   with_items: "{{ backup_profiles }}"

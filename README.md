@@ -28,6 +28,7 @@ backup_group: "{{ backup_user }}"
 
 backup_home: /etc/duply         # Backup configuration directory
 backup_work: /var/duply         # Working directory
+backup_temp_dir: /tmp           # Temporary directory (for restore)
 
 backup_duplicity_ppa: ppa:duplicity-team/ppa  # Set empty for skipping PPA addition
 backup_duplicity_pkg: duplicity
@@ -69,6 +70,8 @@ backup_profiles: []           # Setup backup profiles
                               #         action: backup_purge         # If you want to run the purge command along with the backup one to delete obsolete backups
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
+                              #         work_dir: /var/profile_specific_workdir
+                              #         temp_dir: /profile_specific_temp_dir
 
 # Default values (overide them in backup profiles bellow)
 # =======================================================

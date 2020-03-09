@@ -8,5 +8,5 @@
   file: state=absent path={{ item }}
   with_items:
   - "{{ backup_home }}"
-  - "{{ backup_work }}"
+  - "{{ item.work_dir|default(backup_work) }}"
   - "{{ backup_logdir }}"
