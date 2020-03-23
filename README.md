@@ -67,7 +67,7 @@ backup_profiles: []           # Setup backup profiles
                               #           - *.pyc
                               #       - name: postgresql
                               #         schedule: 0 4 * * *
-                              #         action: backup_purge         # If you want to run the purge command along with the backup one to delete obsolete backups
+                              #         action: backup_purge         # any duply command (read more : https://duply.net/wiki/index.php/Duply-documentation)
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
                               #         work_dir: /var/profile_specific_workdir
