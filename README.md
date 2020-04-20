@@ -178,9 +178,11 @@ Run backup for profile `uploads` manually:
 
     $ duply uploads backup
 
-Load backup for profile `postgresql` from cloud and restore database (logged as postgres user)
+Load backup for profile `postgresql` from cloud:
 
-    $ duply postgresql restore
+    $ duply postgresql restore /path/to/destination
+
+In `/etc/duply/profile/restore`, you can find for each profile examples of commands to run to import your restored data in your database.
 
 Also see `duply usage`
 
