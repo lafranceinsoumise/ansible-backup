@@ -105,6 +105,8 @@ backup_exclude: [] # List of filemasks to exlude
 backup_scheme_deps:
   azure:
     - python-azure-storage
+  b2:
+    - backblaze-b2
   copy:
     - python-urllib3
   fish:
