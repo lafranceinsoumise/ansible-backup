@@ -55,13 +55,14 @@
     group: "{{ item.group|default(backup_group) }}"
   with_items: "{{ backup_profiles }}"
 
-- name: backup-configure | Configure restore scripts
+- name: backup-configure | Configure restore examples
   template:
     src: restore.j2
     dest: "{{ backup_home }}/{{ item.name }}/restore"
     owner: "{{ item.user|default(backup_user) }}"
     group: "{{ item.group|default(backup_group) }}"
   with_items: "{{ backup_profiles }}"
+  when: item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') or item.source.startswith('redis://')
 
 - name: backup-configure | Create work directories
   file:
