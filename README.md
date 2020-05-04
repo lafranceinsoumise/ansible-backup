@@ -187,6 +187,11 @@ In `/etc/duply/profile/restore`, you can find for each profile examples of comma
 Also see `duply usage`
 
 
+## Difference 4.x 5.x
+
+5.x versions are compatible with Ubuntu Focal, which use python3 as default python. 5.x also does not use 
+duplicity team PPA by default, whereas 4.x does.
+
 ## License
 
 Licensed under the MIT License. See the LICENSE file for details.
