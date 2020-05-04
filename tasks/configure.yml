@@ -7,6 +7,7 @@
   group:
     name: "{{ backup_node_exporter_group }}"
     system: yes
+  when: backup_prometheus
 
 - name: backup-configure | Ensure backup user is in node-exporter group
   user: name={{ backup_user }} groups={{ backup_node_exporter_group }} append=yes
