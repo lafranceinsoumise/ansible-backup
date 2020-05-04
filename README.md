@@ -30,7 +30,7 @@ backup_home: /etc/duply         # Backup configuration directory
 backup_work: /var/duply         # Working directory
 backup_temp_dir: /tmp           # Temporary directory (for restore)
 
-backup_duplicity_ppa: ppa:duplicity-team/ppa  # Set empty for skipping PPA addition
+backup_duplicity_ppa: false     # Set to yes to use Duplicity team PPA
 backup_duplicity_pkg: duplicity
 backup_duplicity_version:       # Set duplicity version
 
