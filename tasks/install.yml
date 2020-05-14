@@ -4,7 +4,7 @@
 
 - name: Add duplicity repository
   apt_repository:
-    repo: ppa:duplicity-team/ppa
+    repo: ppa:duplicity-team/duplicity-release-git
     state: present
     update_cache: yes
   when: backup_duplicity_ppa
