@@ -10,6 +10,7 @@ Redis backup is experimental and only works with [AOF](https://redis.io/topics/p
 
 Supports export of backup status to Prometheus. Metrics are written in a directory
 in order to be exposed by the [Textfile collector](https://github.com/prometheus/node_exporter#textfile-collector).
+On first deploy, it will create a new export with backup_time = 0, until the first backup is run.
 
 Initially forked from [Stouts.backup](https://github.com/Stouts/Stouts.backup).
 
