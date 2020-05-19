@@ -70,6 +70,13 @@
   with_items: "{{ backup_profiles }}"
   when: item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') or item.source.startswith('redis://')
 
+- name: backup-configure | Create node-exporter metric files with 0 value
+  template:
+    src: backup.prom.j2
+    dest: "{{ backup_prometheus_dir }}/backup_{{ item.name }}.prom"
+    force: no
+  with_items: "{{ backup_profiles }}"
+
 - name: backup-configure | Create work directories
   file:
     state: directory
