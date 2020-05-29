@@ -9,9 +9,13 @@
     system: yes
   when: backup_prometheus
 
-- name: backup-configure | Ensure backup user is in node-exporter group
-  user: name={{ backup_user }} groups={{ backup_node_exporter_group }} append=yes
+- name: backup-configure | Ensure backup users are in node-exporter group
+  user:
+    name: "{{ item.user|default(backup_user) }}"
+    groups: "{{ backup_node_exporter_group }}"
+    append: yes
   when: backup_prometheus
+  with_items: "{{ backup_profiles }}"
 
 - name: backup-configure | Ensure backup directories exist
   file: path={{ item }} state=directory owner={{ backup_user }} group={{ backup_group }}
