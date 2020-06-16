@@ -2,6 +2,12 @@
 
 - include_vars: "{{ ansible_distribution }}.yml"
 
+- name: Remove legacy duplicity repository
+  apt_repository:
+    repo: ppa:duplicity-team/ppa
+    state: absent
+    update_cache: yes
+
 - name: Add duplicity repository
   apt_repository:
     repo: ppa:duplicity-team/duplicity-release-git
