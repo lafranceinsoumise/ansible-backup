@@ -73,6 +73,12 @@ backup_profiles: []           # Setup backup profiles
                               #         target: s3://my.bucket/postgresql
                               #         work_dir: /var/profile_specific_workdir
                               #         temp_dir: /profile_specific_temp_dir
+                              #       - name: mongodb
+                              #         schedule: 0 4 * * *
+                              #         source: mongo://
+                              #         db: mydb # optional, default to backup all databases
+                              #         exclude_collection: # optional, allow to exclude collections from backup
+                              #          - sessions
 
 # Default values (overide them in backup profiles bellow)
 # =======================================================
