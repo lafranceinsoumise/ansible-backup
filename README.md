@@ -55,6 +55,11 @@ backup_mysql_pass: ""
 backup_redis_user: redis
 backup_redis_group: "{{ backup_redis_user }}"
 
+# MongoDB
+backup_mongo_user: ""
+backup_mongo_password: ""
+
+
 backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:
                               #       - name: www               # required param
