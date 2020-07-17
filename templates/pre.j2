@@ -37,11 +37,11 @@ ARGS="$ARGS --excludeCollection={{ colname }}"
 ARGS="$ARGS --oplog"
 {% endif %}
 
-{% if backup_mongo_user %}
+{% if backup_mongo_user is defined %}
 ARGS="$ARGS --username={{ backup_mongo_user }}
 {% endif %}
 
-{% if backup_mongo_password %}
+{% if backup_mongo_password is defined %}
 ARGS="$ARGS --password={{ backup_mongo_password }}
 {% endif %}
 
