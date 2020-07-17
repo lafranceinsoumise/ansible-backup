@@ -45,6 +45,10 @@ ARGS="$ARGS --username={{ backup_mongo_user }}
 ARGS="$ARGS --password={{ backup_mongo_password }}
 {% endif %}
 
+{% if backup_mongo_port is defined %}
+ARGS="$ARGS --port {{ backup_mongo_port }}
+{% endif %}
+
 mongodump --out $WORKDIR/dump $ARGS
 
 {% elif item.source.startswith('redis://') %}
