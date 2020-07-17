@@ -38,15 +38,15 @@ ARGS="$ARGS --oplog"
 {% endif %}
 
 {% if backup_mongo_user is defined %}
-ARGS="$ARGS --username={{ backup_mongo_user }}
+ARGS="$ARGS --username={{ backup_mongo_user }}"
 {% endif %}
 
 {% if backup_mongo_password is defined %}
-ARGS="$ARGS --password={{ backup_mongo_password }}
+ARGS="$ARGS --password={{ backup_mongo_password }}"
 {% endif %}
 
 {% if backup_mongo_port is defined %}
-ARGS="$ARGS --port {{ backup_mongo_port }}
+ARGS="$ARGS --port {{ backup_mongo_port }}"
 {% endif %}
 
 mongodump --out $WORKDIR/dump $ARGS
