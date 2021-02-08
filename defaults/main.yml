@@ -29,6 +29,7 @@ backup_postgres_host: ""
 backup_postgres_port: 5432
 
 # Mysql
+backup_mysql_host: ""
 backup_mysql_user: ""
 backup_mysql_pass: ""
 
