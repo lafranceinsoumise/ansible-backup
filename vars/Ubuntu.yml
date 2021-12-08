@@ -1,1 +1,3 @@
 ---
+
+system_python_version: "{{ (ansible_distribution_major_version >= '20') | ternary('3', '') }}"
