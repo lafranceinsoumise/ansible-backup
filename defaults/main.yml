@@ -1,5 +1,4 @@
 ---
-system_python_version: "{{ (ansible_distribution_release == 'focal') | ternary('3', '') }}"
 
 backup_enabled: yes             # Enable the role
 backup_remove: no               # Set yes for uninstall the role from target system
