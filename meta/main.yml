@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: backup
   author: lafranceinsoumise
   description: Backup system. Files, dirs, databases. Upload to clouds.
   license: MIT
