@@ -1,13 +1,14 @@
 ---
 
 - name: backup-configure | Ensure backup user exists
-  user: name={{ backup_user }}
+  user:
+    name: "{{ backup_user }}"
 
 - name: backup-configure | Ensure node-exporter group exists
   group:
     name: "{{ backup_node_exporter_group }}"
     system: yes
-  when: backup_prometheus
+  when: backup_prometheus | bool
 
 - name: backup-configure | Ensure backup users are in node-exporter group
   user:
@@ -18,7 +19,11 @@
   with_items: "{{ backup_profiles }}"
 
 - name: backup-configure | Ensure backup directories exist
-  file: path={{ item }} state=directory owner={{ backup_user }} group={{ backup_group }}
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ backup_user }}"
+    group: "{{ backup_group }}"
   with_items:
   - "{{ backup_home }}"
   - "{{ item.work_dir|default(backup_work) }}"
@@ -114,7 +119,10 @@
     weekday: "{{ item.schedule.split(' ')[4] }}"
     name: "{{ item.name }}"
   loop: "{{ backup_profiles }}"
-  when: backup_cron and item.schedule|default(None)
+  when:
+    - backup_cron | bool
+    - item.schedule is defined
+    - item.schedule | length > 0
 
 - name: backup-configure | Create log files
   file:

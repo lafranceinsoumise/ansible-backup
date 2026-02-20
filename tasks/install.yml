@@ -17,7 +17,7 @@
 
 - set_fact:
     backup_duplicity_pkg: "{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
-  when: backup_duplicity_version
+  when: backup_duplicity_version is defined and backup_duplicity_version is not none
 
 - name: Install core dependencies
   apt:

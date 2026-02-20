@@ -2,10 +2,14 @@
 # Uninstall the role
 
 - name: Uninstall the role - pt. 1
-  file: state=absent path=/etc/cron.d/backup
+  file:
+    state: absent
+    path: /etc/cron.d/backup
 
 - name: Uninstall the role - pt. 2
-  file: state=absent path={{ item }}
+  file:
+    state: absent
+    path: "{{ item }}"
   with_items:
   - "{{ backup_home }}"
   - "{{ item.work_dir|default(backup_work) }}"
