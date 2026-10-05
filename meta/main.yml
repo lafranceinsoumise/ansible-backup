@@ -13,4 +13,4 @@ galaxy_info:
   - system
   - cloud
   - backup
-  min_ansible_version: 2.6
+  min_ansible_version: 2.15

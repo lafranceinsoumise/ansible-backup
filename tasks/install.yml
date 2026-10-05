@@ -1,19 +1,36 @@
 ---
 
-- include_vars: "{{ ansible_distribution }}.yml"
+- include_vars: "{{ ansible_facts['distribution'] }}.yml"
 
 - name: Remove legacy duplicity repository
-  apt_repository:
-    repo: ppa:duplicity-team/ppa
+  file:
+    path: "/etc/apt/sources.list.d/ppa_duplicity_team_ppa_{{ ansible_facts['distribution_release'] }}.list"
     state: absent
-    update_cache: yes
+  register: backup_legacy_duplicity_repo
+
+- name: Ensure python3-debian is installed
+  apt:
+    name: python3-debian
+    state: present
+  when: backup_duplicity_ppa
 
 - name: Add duplicity repository
-  apt_repository:
-    repo: ppa:duplicity-team/duplicity-release-git
-    state: present
-    update_cache: yes
+  deb822_repository:
+    name: duplicity-team-duplicity-release-git
+    types: [deb]
+    uris:
+      - https://ppa.launchpadcontent.net/duplicity-team/duplicity-release-git/ubuntu
+    suites:
+      - "{{ ansible_facts['distribution_release'] }}"
+    components: [main]
+    signed_by: "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x4BC056F4C31D7D82488C3AA9EA0A88258CB19A4A"
   when: backup_duplicity_ppa
+  register: backup_duplicity_repo
+
+- name: Update apt cache after repository changes
+  apt:
+    update_cache: yes
+  when: backup_legacy_duplicity_repo is changed or backup_duplicity_repo is changed
 
 - set_fact:
     backup_duplicity_pkg: "{{ backup_duplicity_pkg }}={{ backup_duplicity_version }}"
